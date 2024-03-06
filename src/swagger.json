@@ -1,0 +1,189 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SOLID_Challenge Documentation",
+    "Description": "This is a documentation for API REST",
+    "version": "1.0.0",
+    "contact": {
+      "email": "beatriznduarte1@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a new user",
+        "Description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "types": "object",
+                "properties": {
+                  "name": {
+                    "types": "string"
+                  },
+                  "email": {
+                    "types": "string"
+                  }
+                },
+                "example": {
+                  "name": "Beatriz Duarte",
+                  "email": "beatriznduarte1@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "An authorization header containing the user ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get all users",
+        "description": "Get All Users",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not exist or User not have admin permission"
+          }
+        }
+      }
+    }, 
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "minimum": 1,
+            "description": "Is necessary pass the user Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Show user profile",
+        "description": "Show user profile",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exists"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "minimum": 1,
+            "description": "Is necessary pass the user Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Change user permissions for a user admin",
+        "description": "Change user permissions for a user admin",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exists"
+          }
+        }
+      }
+    }
+  }
+}
